@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Balance - Deen & Dunya Motivation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f7fa, #fff3e0);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .bismillah {
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      color: #7b1fa2;
+    }
+
+    #quoteText {
+      font-size: 1.3rem;
+      font-style: italic;
+    }
+
+    #quoteAuthor {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #00796b;
+    }
+
+    #timer {
+      font-size: 1.2rem;
+      color: #5d4037;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column justify-content-center align-items-center min-vh-100 text-center">
+
+  <div class="container py-4">
+    <h1 class="text-success mb-2">Student Focus and Inner Peace</h1>
+    <div class="bismillah mb-3">﷽</div>
+
+    <div class="mb-4">
+      <select id="categorySelect" class="form-select w-auto mx-auto">
+        <option value="all">All Quotes</option>
+        <option value="islamic">Spiritual Only</option>
+        <option value="scientific">Modern Thinkers	</option>
+      </select>
+    </div>
+
+    <div id="quoteBox" class="card shadow p-4 mb-3 mx-auto" style="max-width: 700px;">
+      <div id="quoteText">"Loading wisdom..."</div>
+      <div id="quoteAuthor" class="mt-2"></div>
+    </div>
+
+    <div class="mb-3">
+      <button class="btn btn-info me-2" onclick="newQuote()">🔁 New Quote</button>
+      <button class="btn btn-success" onclick="startTimer()">🧘 Reflect (1 Min)</button>
+    </div>
+
+    <div id="timer"></div>
+  </div>
+
+  <script>
+    const quotes = [
+      { text: "So verily, with hardship, there is relief.", author: "Surah Ash-Sharh (94:6)", category: "islamic" },
+      { text: "Indeed, Allah is with the patient.", author: "Surah Al-Baqarah (2:153)", category: "islamic" },
+      { text: "The strong believer is better and more beloved to Allah than the weak believer.", author: "Hadith - Sahih Muslim", category: "islamic" },
+      { text: "The heart will never find peace until it turns to Allah.", author: "Ibn Qayyim Al-Jawziyya", category: "islamic" },
+      { text: "A busy life makes prayer harder. But prayer makes a busy life easier.", author: "Imam Al-Ghazali", category: "islamic" },
+      { text: "Whoever follows a path in pursuit of knowledge, Allah will make a path to Paradise easy for him.", author: "Prophet Muhammad ﷺ (Hadith - Muslim)", category: "islamic" },
+      { text: "Acquire knowledge and impart it to the people.", author: "Prophet Muhammad ﷺ", category: "islamic" },
+      { text: "Read! In the name of your Lord who created.", author: "Surah Al-Alaq (96:1)", category: "islamic" },
+      { text: "An hour of study for the sake of Allah is better than a thousand units of prayer.", author: "Imam Al-Ghazali", category: "islamic" },
+      { text: "He who does not seek knowledge in his youth will lament it in his old age.", author: "Hasan Al-Basri", category: "islamic" },
+
+      { text: "Look deep into nature, and then you will understand everything better.", author: "Albert Einstein", category: "scientific" },
+      { text: "Nothing in life is to be feared, it is only to be understood.", author: "Marie Curie", category: "scientific" },
+      { text: "It always seems impossible until it’s done.", author: "Nelson Mandela", category: "scientific" },
+      { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill", category: "scientific" },
+      { text: "The best way to predict your future is to create it.", author: "Abraham Lincoln", category: "scientific" },
+      { text: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela", category: "scientific" },
+      { text: "Anyone who has never made a mistake has never tried anything new.", author: "Albert Einstein", category: "scientific" },
+      { text: "Do not worry about your difficulties in Mathematics. I can assure you mine are still greater.", author: "Albert Einstein", category: "scientific" },
+      { text: "Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.", author: "Richard Feynman", category: "scientific" },
+      { text: "Genius is 1% inspiration and 99% perspiration.", author: "Thomas Edison", category: "scientific" }
+    ];
+
+    const quoteText = document.getElementById("quoteText");
+    const quoteAuthor = document.getElementById("quoteAuthor");
+    const timerDisplay = document.getElementById("timer");
+    const categorySelect = document.getElementById("categorySelect");
+
+    function newQuote() {
+      const category = categorySelect.value;
+      const filtered = category === "all" ? quotes : quotes.filter(q => q.category === category);
+      const random = filtered[Math.floor(Math.random() * filtered.length)];
+      quoteText.style.opacity = 0;
+      quoteAuthor.style.opacity = 0;
+      setTimeout(() => {
+        quoteText.innerText = `"${random.text}"`;
+        quoteAuthor.innerText = `— ${random.author}`;
+        quoteText.style.opacity = 1;
+        quoteAuthor.style.opacity = 1;
+      }, 300);
+    }
+
+    function startTimer() {
+      let time = 60;
+      timerDisplay.innerText = `🕯️ Breathe & Reflect: ${time}s`;
+      const interval = setInterval(() => {
+        time--;
+        timerDisplay.innerText = `🕯️ Breathe & Reflect: ${time}s`;
+        if (time <= 0) {
+          clearInterval(interval);
+          timerDisplay.innerText = "✅ Time’s up. May your heart be light ✨";
+        }
+      }, 1000);
+    }
+
+    window.onload = newQuote;
+  </script>
+</body>
+</html>
